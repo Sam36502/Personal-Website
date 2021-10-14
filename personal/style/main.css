@@ -1,0 +1,74 @@
+@font-face {
+	font-family: Iosevka Extended Heavy;
+	src: url(iosevka/IOSEVKA-EXTENDEDHEAVY.TTF);
+}
+
+body {
+    padding: 100px;
+    font-family: Iosevka Extended Heavy, monospace;
+    width: 50%;
+}
+
+p {
+    width: 33%;
+}
+
+@media only screen and (max-width: 850px) {
+    body {
+        padding: 30px;
+        width: auto;
+    }
+    
+    p {
+        width: auto;
+    }
+    
+    table {
+        width: 10px;
+    }
+    
+    th, td {
+        font-size: 8pt;
+    }
+}
+
+ul>li {
+    list-style-type: square;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:visited {
+    color: blue;
+}
+
+a:hover {
+    color: grey;
+}
+
+img {
+    width: 100%;
+    max-width: 600px;
+}
+
+#hiddenimg {
+    margin-top: 2000px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th {
+    border-bottom: 2px solid grey;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}

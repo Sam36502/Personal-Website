@@ -1,0 +1,276 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>FOSA | Free Online Standards Association</title>
+		<link rel="stylesheet" type="text/css" href="../../style.css"/>
+		<meta charset="utf8">
+	</head>
+	
+	<body>
+		<div id="page">
+			<div id="title">
+				<img src="../../FOSA_Logo_Large.png">
+				<h2><i>Free Online Standards Association</i></h2>
+			</div>
+			
+			<ul id="nav">
+				<li><a href="../../about.html">About</a></li>
+				<li><a href="../../index.html">Index</a></li>
+				<li><a href="../../contact.html">Contact</a></li>
+			</ul>
+			
+			<div id="content">
+				
+				<i>FOSA Standard no. 004</i>
+				<h2>Human Scan Code Standard</h2>
+				<hr>
+				<i>Author: Samuel Pearce</i><br>
+				<i>E-Mail: sam@aepearce.com</i><br>
+				
+				<h3>Contents</h3>
+				<ol>
+					<li>Version</li>
+					<li>Terminology</li>
+					<li>Purpose</li>
+					<li>Generation</li>
+					<li>Decoding</li>
+					<li>Variations</li>
+					<li>Approval</li>
+				</ol>
+				
+				<h3>1 - Version</h3>
+				<p>
+				 VERSION: 1.0<br>
+				 CHANGES:<br>
+					No changes have been made.
+				</p>
+				
+				<h3>2 - Terminology</h3>
+				<p>
+					  HS-Code:
+						Any visual code that
+						conforms to this standard.
+						Including variations defined
+						in this document.
+				</p>
+				
+				<h3>3 - Purpose</h3>
+				<p>
+					  The HS-Code Standard defines how to use
+					 and implement the HS-Code system. The system
+					 is a method of encoded communication that,
+					 like a QR-Code can be read easily and posted
+					 anywhere in the physical world, but has the
+					 convenience of far simpler to implement. This
+					 also means, that the code can be decoded using						 nothing more than a paper an pen, if necessary.
+					 It also doesn't require any cameras or fancy
+					 image recognition software to read the code if
+					 it has been posted in the real world.
+				</p>
+				
+				<h3>4 - Encoding</h3>
+				<p>
+					 To encode data to HS-Code format the bytes are
+					 filled out to the maximum for the specified
+					 variant. The end of the string is denoted by
+					 a zero byte (0x00). Anything after the zero
+					 byte can be completely random. These bytes are
+					 then arranged into a grid. The top left square
+					 of the grid is completely filled and the bottom
+					 right square is reserved for the check digit.
+					 Below is an example of a version 2 Code in it's
+					 completed form.<br>
+					 <pre><code>
+
+						██ 00 01 02
+						03 04 05 06
+						07 08 09 0A
+						0B 0C 0D 2F
+					
+					</code></pre>
+					 The checksum is the digit to be added on to
+					 the end so that the total sum of all digits
+					 is evenly divisible by 69. In the example
+					 above the checksum is 47, because the sum of
+					 all digits in the square is 91 and:<br>
+						(91 + 47) / 69 = 2<br>
+					 Finally the checksum is converted to hex and
+					 written in the bottom right of the square.
+					 In the example above 47 => 0x2F.
+				</p>
+				
+				<h3>5 - Decoding</h3>
+				<p>
+					 The first step of decoding should be checking if
+					 all the digits were entered correctly be summing
+					 up all digits in the square (including the check-
+					 sum) and checking that it can be divided by 69
+					 without any remainder. If this check passes the
+					 decoding can begin.
+					 Decoding is really quite simple, each grouping of
+					 two hex digits is a single byte of data.
+					 The lines are read from top to bottom, and each
+					 line is read from left to right.
+					 Below is a demonstration of the read directions with
+					 a Version 2 HS-Code (CS = Checksum):<br>
+					 <pre><code>
+
+						██ >> >> >>
+						>> >> >> >>
+						>> >> >> >>
+						>> >> >> CS
+					</code></pre>
+					 The pattern should be read like a book. This also
+					 means that the orientation square can be anywhere
+					 and that changes how the square should be read e.g:<br>
+					<pre><code>
+						^^ ^^ ^^ CS
+						^^ ^^ ^^ ^^
+						^^ ^^ ^^ ^^
+						██ ^^ ^^ ^^
+					</code></pre>
+					 This allows the code to output at any angle and
+					 still be understoon by a human reader.
+
+					 All data is assumed to be ASCII text unless a format
+					 is defined at the beginning of the code. The format
+					 can be set by setting the first byte to a value below
+					 32 according to the table below:<br>
+					<table><br>
+						<tr>
+							<th>Byte</th>
+							<th>Format</th>
+						</tr>
+						<tr>
+							<td>0x00</td>
+							<td>EOF</td>
+						</tr>
+						<tr>
+							<td>0x01</td>
+							<td>numbers, delimited by 0x01s</td>
+						</tr>
+						<tr>
+							<td>0x02</td>
+							<td>strings, delimited by 0x02s</td>
+						</tr>
+						<tr>
+							<td>0x03</td>
+							<td>floating point numbers, four bytes each</td>
+						</tr>
+						<tr>
+							<td>0x04</td>
+							<td>double precision floats, eight bytes each</td>
+						</tr>
+						<tr>
+							<td>0x05</td>
+							<td>Ceaser Cipher, second byte is the key</td>
+						</tr>
+					</table><br>
+
+					 The bytes from 0x06 - 0x20 are undefined. Any suggestions
+					 as to what could be added to the standard formats are
+					 welcomed. See the contact page of the FOSA website:
+						http://www.pearcenet.ch/fosa/contact.html
+
+				</p>
+				
+				<h3>6 - Variations</h3>
+				<p>
+				 There are at least 11 officially supported
+				 versions of the HS-Code. Each version is simply
+				 the size of the square being used. For example
+				 below is a version 1 and version 2 HS Code.<br>
+				 <pre><code>
+					->|  |<-	->|     |<-
+					██ 01 02	██ 01 02 03
+					03 04 05	04 05 06 07
+					06 07 29	08 09 0A 0B
+						        0C 0D 0E 21
+				</code></pre>
+				 The version number is the size of the square
+				 in the centre. That means the size of the whole
+				 square is the version number + 1. To calculate
+				 the number of data tiles in an HS-Code, you can
+				 use the formula:<br>
+					Tiles = Version^2 + Version * 4 + 2<br>
+				<br>
+				 Valid checksums have been found for all versions
+				 from 1 to 50. Although version 10 already becomes
+				 rather unruly to "scan" by a human.
+				 Technically, a version 0 is also possible and
+				 would look like so:<br>
+				 <pre><code>
+					██ 01
+					02 42
+				</code></pre>
+				 Here are all supported versions with the number
+				 of bytes each can store:<br>
+				 <table><br>
+					<tr>
+						<th>Version</th>
+						<th>Capacity</th>
+					</tr>
+					<tr>
+						<td>0</td>
+						<td>2 B</td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>7 B</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>14 B</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>23 B</td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td>34 B</td>
+					</tr>
+					<tr>
+						<td>5</td>
+						<td>47 B</td>
+					</tr>
+					<tr>
+						<td>6</td>
+						<td>62 B</td>
+					</tr>
+					<tr>
+						<td>7</td>
+						<td>79 B</td>
+					</tr>
+					<tr>
+						<td>8</td>
+						<td>98 B</td>
+					</tr>
+					<tr>
+						<td>9</td>
+						<td>119 B</td>
+					</tr>
+					<tr>
+						<td>10</td>
+						<td>142 B</td>
+				 <table><br>
+				</p>
+				
+				<h3>7 - Approval</h3>
+				<i>
+					Signed By: Samuel Pearce, FOSA<br>
+					Signed On: 28/08/2019<br>
+					Signature: <a href="FS004_Standard_v1.0.txt.sig" download>FS004_Standard_v1.0.txt.sig</a><br>
+				</i>
+				
+			</div>
+			
+			<div id="footer">
+				<p class="left">Free Online Standards Association</p>
+				<p class="right">August, 2019</p>
+			</div>
+			
+		</div>
+		
+	</body>
+</html>

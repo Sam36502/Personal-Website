@@ -1,0 +1,238 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>FOSA | Free Online Standards Association</title>
+		<link rel="stylesheet" type="text/css" href="../../style.css"/>
+		<meta charset="utf8">
+	</head>
+	
+	<body>
+		<div id="page">
+			<div id="title">
+				<img src="../../FOSA_Logo_Large.png">
+				<h2><i>Free Online Standards Association</i></h2>
+			</div>
+			
+			<ul id="nav">
+				<li><a href="../../about.html">About</a></li>
+				<li><a href="../../index.html">Index</a></li>
+				<li><a href="../../contact.html">Contact</a></li>
+			</ul>
+			
+			<div id="content">
+				
+				<i>FOSA Standard no. 003</i>
+				<h2>CTML Standard</h2>
+				<hr>
+				<i>Author: Samuel Pearce</i><br>
+				<i>E-Mail: sam@aepearce.com</i><br>
+				
+				<h3>Contents</h3>
+				<ol>
+					<li>Version</li>
+					<li>Terminology</li>
+					<li>Purpose</li>
+					<li>Definitions</li>
+					<li>Elements</li>
+					<li>Attributes</li>
+					<li>Approval</li>
+				</ol>
+				
+				<h3>1 - Version</h3>
+				<p>
+				 VERSION: 1.0<br>
+				 CHANGES:<br>
+					No changes have been made.
+				</p>
+				
+				<h3>2 - Terminology</h3>
+				<p>
+					 CTML:
+						Initialism as a name for the Console
+						Text Markup Language.
+					 Tag:
+						A tag in CTML is any sequence of characters
+						that begins with an open square bracket ([) and
+						ends with a closed square bracket (]).
+					 Element:
+						An element is any region of text, including tags,
+						that are surrounded by a beginning and end tag.
+					 Attribute:
+						Attributes are parts of a tag that describe how
+						the content of the element should be displayed.
+				</p>
+				
+				<h3>3 - Purpose</h3>
+				<p>
+					 The CTML Standard's Purpose is to define a markup language
+					 that is more compatable with text based consoles as opposed
+					 to graphical environments. The language is however still
+					 fully compatible with graphical environments.
+				</p>
+				
+				<h3>4 - Definitions</h3>
+				<p>
+					 A beginning tag contains an element keyword (See section 5)
+					 surrounded by square brackets. Optionally attributes can be
+					 defined inside the square brackets. All attributes are
+					 seperated from the element keyword by a pipe character (|).
+					 The attributes are made up of the attribute keyword and the
+					 assigned value seperated by a colon (:). Each attribute is
+					 seperated from each other by a comma. All spaces are ignored.
+					 Examples:
+						
+						[p] --> A beginning paragraph tag
+						[p| fg: red] --> A paragraph tag with red text
+						[p| fg: green, bg: black] --> A paragraph with green
+										  text and black background
+
+					 An end tag is simply any tag that has a forward slash (/) in
+					 the element keyword. Any attributes are ignored. If the user
+					 wants to label their end tags it is allowed but not required.
+					 Examples:<br>
+					<br>
+						[/] --> Valid end tag<br>
+						[/p] --> Valid end tag<br>
+						[/box] --> Valid end tag<br>
+					<br>
+					 Page elements can be nested inside each other with the "deepest"
+					 attributes being applied. By default the background colour is
+					 white and the foreground colour is black. 
+					 Example:<br>
+					<br>
+						[p| fg: green, bg: black]<br>
+						  This text is green on a black background.<br>
+						  <br>
+						  [p| fg: blue]<br>
+							This text is blue on a black background.<br>
+						  [/]<br>
+						  <br>
+						  This text is green on a black background.<br>
+						[/]<br>
+				</p>
+				
+				<h3>5 - Elements</h3>
+				<p>
+					 5-1	Paragraph (p)<br>
+						The text is a paragraph by default has no formatting.
+						This is plain text.
+					<br>
+					 5-2	First Heading (h1)<br>
+						The first heading is Fully capitalized with a double
+						underline, using the ASCII border characters.
+						The text is offset from the edges by one whitespace:<br>
+							<br>
+							 FIRST HEADING<br>
+							═══════════════<br>
+							<br>
+					 5-3	Second Heading (h2)<br>
+						The second heading is the same as the first heading,
+						except the text is not capitalized:<br>
+							<br>
+							 Second Heading<br>
+							════════════════<br>
+							<br>
+					 5-4	Third Heading (h3)<br>
+						The third heading is the same as the second heading,
+						except the underline consists of single border
+						characters:<br>
+						<br>
+							 Third Heading<br>
+							───────────────<br>
+						<br>
+					 5-5	Fourth Heading (h4)<br>
+						The fourth heading is the same as the Third heading,
+						but there is no offset from the edges and the underline
+						uses minus characters instead of border characters:<br>
+						<br>
+							Fourth Heading<br>
+							--------------<br>
+						<br>
+					 5-6	Highlight (high)<br>
+						By default this will set the background of any text it
+						encompasses to yellow. The color can be changed with
+						the 'bg' attribute.<br>
+
+					 5-7	Box (box)<br>
+						The box element creates a box at any position on the
+						screen and any text inside it will wrap when it reaches
+						the end of the box's width. If the starting column or
+						starting row is not defined, it will just pick the left-
+						most column or topmost row it can. If the width or height
+						is not set it will simply take up as much space as possible.
+						If the box runs out of room to display it's elements, it
+						will add a scroll bar. If the padding attribute is set, any
+						elements inside the box will have the amount of space from
+						the edges of the box. if the box's margin attribute is set,
+						That amount of space will be left around the outside of the
+						box. Any elements outside the box will keep that much distance.<br>
+
+					 5-8	Hyperlinks (link)<br>
+						For a link element to lead anywhere when clicked on, it must
+						have the href attribute set to a valid url. when the link is
+						selected it will be highlighted. The default highlight colour
+						is light grey, but this can be changed, by setting the sel
+						attribute.<br>
+				</p>
+				
+				<h3>6 - Usage</h3>
+				<p>
+					 All attributes have an index (listed here in square brackets)
+					 that defines where this attribute should be stored in an array
+					 of all possible attributes.<br>
+					<br>
+					 6-1	Foreground (fg) [0]<br>
+						This attribute defines what colour the text will be
+						written in.<br>
+					<br>
+					 6-2	Background (bg) [1]<br>
+						This defines the background colour of any text in
+						the current element.<br>
+					<br>
+					 6-3	Width (width) [2]<br>
+						This defines the width of the current box element.<br>
+					<br>
+					 6-4	Height (height) [3]<br>
+						Defines the height of the current box element.<br>
+					<br>
+					 6-5	Box X Coordinate (col) [4]<br>
+						Defines after which column the current box should be drawn.<br>
+					<br>
+					 6-6	Box Y Coordinate (row) [5]<br>
+						Defines after which row the current box should be drawn.<br>
+					<br>
+					 6-7	Select colour (sel) [6]<br>
+						Sets what colour the background should be set to when<br>
+						the element is selected.
+					<br>
+					 6-8	Margin (margin) [7]<br>
+						Sets how many characters to leave around the current
+						box element.<br>
+					<br>
+					 6-9	Padding (padding) [8]<br>
+						Sets how many character to leave around the inside of
+						the current box element.<br>
+					<br>
+					 6-10	Hyperlink Reference (href) [9]<br>
+						Defines where a link will lead to when selected and
+						entered by a user.<br>
+				</p>
+				
+				<h3>7 - Approval</h3>
+				<i>
+					Signed By: Samuel Pearce, FOSA<br>
+					Signed On: 02/09/2019<br>
+					Signature: <a href="FS003_Standard_v1.0.txt.sig" download>FS003_Standard_v1.0.txt.sig</a><br>
+				</i>
+				
+			</div>
+			
+			<div id="footer">
+				<p class="left">Free Online Standards Association</p>
+				<p class="right">August, 2019</p>
+			</div>
+			
+		</div>
+		
+	</body>
+</html>

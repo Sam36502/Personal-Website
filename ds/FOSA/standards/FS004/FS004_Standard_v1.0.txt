@@ -1,0 +1,171 @@
+FOSA Standard no. 004
+
+Human Scan Code Standard
+------------------------
+ Author: Samuel Pearce
+ E-Mail: sam@aepearce.com
+
+Contents:
+ 1. Version
+ 2. Terminology
+ 3. Purpose
+ 4. Generation
+ 5. Decoding
+ 6. Variations
+ 7. Approval
+
+1- Version
+----------
+ VERSION: 1.0
+ CHANGES:
+	No changes have been made.
+
+2 - Terminology
+---------------
+ HS-Code:
+	Any visual code that
+	conforms to this standard.
+	Including variations defined
+	in this document.
+
+3 - Purpose
+-----------
+ The HS-Code Standard defines how to use
+ and implement the HS-Code system. The system
+ is a method of encoded communication that,
+ like a QR-Code can be read easily and posted
+ anywhere in the physical world, but has the
+ convenience of far simpler to implement. This
+ also means, that the code can be decoded using
+ nothing more than a paper an pen, if necessary.
+ It also doesn't require any cameras or fancy
+ image recognition software to read the code if
+ it has been posted in the real world.
+
+4 - Encoding
+------------
+ To encode data to HS-Code format the bytes are
+ filled out to the maximum for the specified
+ variant. The end of the string is denoted by
+ a zero byte (0x00). Anything after the zero
+ byte can be completely random. These bytes are
+ then arranged into a grid. The top left square
+ of the grid is completely filled and the bottom
+ right square is reserved for the check digit.
+ Below is an example of a version 2 Code in it's
+ completed form.
+
+	██ 00 01 02
+        03 04 05 06
+	07 08 09 0A
+	0B 0C 0D 2F
+
+ The checksum is the digit to be added on to
+ the end so that the total sum of all digits
+ is evenly divisible by 69. In the example
+ above the checksum is 47, because the sum of
+ all digits in the square is 91 and:
+	(91 + 47) / 69 = 2
+ Finally the checksum is converted to hex and
+ written in the bottom right of the square.
+ In the example above 47 => 0x2F.
+
+5 - Decoding
+------------
+ The first step of decoding should be checking if
+ all the digits were entered correctly be summing
+ up all digits in the square (including the check-
+ sum) and checking that it can be divided by 69
+ without any remainder. If this check passes the
+ decoding can begin.
+ Decoding is really quite simple, each grouping of
+ two hex digits is a single byte of data.
+ The lines are read from top to bottom, and each
+ line is read from left to right.
+ Below is a demonstration of the read directions with
+ a Version 2 HS-Code (CS = Checksum):
+
+	██ >> >> >>
+	>> >> >> >>
+	>> >> >> >>
+	>> >> >> CS
+
+ The pattern should be read like a book. This also
+ means that the orientation square can be anywhere
+ and that changes how the square should be read e.g:
+
+	^^ ^^ ^^ CS
+	^^ ^^ ^^ ^^
+	^^ ^^ ^^ ^^
+	██ ^^ ^^ ^^
+
+ This allows the code to output at any angle and
+ still be understoon by a human reader.
+
+ All data is assumed to be ASCII text unless a format
+ is defined at the beginning of the code. The format
+ can be set by setting the first byte to a value below
+ 32 according to the table below:
+
+	Byte| Format
+	---------------------
+	0x00| EOF
+	0x01| numbers, delimited by 0x01s
+	0x02| strings, delimited by 0x02s
+	0x03| floating point numbers, four bytes each
+	0x04| double precision floats, eight bytes each
+	0x05| Ceaser Cipher, second byte is the key
+
+ The bytes from 0x06 - 0x20 are undefined. Any suggestions
+ as to what could be added to the standard formats are
+ welcomed. See the contact page of the FOSA website:
+	http://www.pearcenet.ch/fosa/contact.html
+
+6 - Variations
+--------------
+ There are at least 11 officially supported
+ versions of the HS-Code. Each version is simply
+ the size of the square being used. For example
+ below is a version 1 and version 2 HS Code.
+	->|  |<-	->|     |<-
+	██ 01 02	██ 01 02 03
+	03 04 05	04 05 06 07
+	06 07 29	08 09 0A 0B
+			0C 0D 0E 21
+ The version number is the size of the square
+ in the centre. That means the size of the whole
+ square is the version number + 1. To calculate
+ the number of data tiles in an HS-Code, you can
+ use the formula:
+	Tiles = Version^2 + Version * 4 + 2
+
+ Valid checksums have been found for all versions
+ from 1 to 50. Although version 10 already becomes
+ rather unruly to "scan" by a human.
+ Technically, a version 0 is also possible and
+ would look like so:
+	██ 01
+	02 42
+
+ Here are all supported versions with the number
+ of bytes each can store:
+	Version  | Capacity
+	------------------
+		0|   2 B
+		1|   7 B
+		2|  14 B
+		3|  23 B
+		4|  34 B
+		5|  47 B
+		6|  62 B
+		7|  79 B
+		8|  98 B
+		9| 119 B
+	       10| 142 B
+
+7 - Approval
+------------
+
+Signed By: Samuel Pearce, FOSA
+Signed On: 28/08/2019
+Signature: FS004_Standard_v1.0.txt.sig

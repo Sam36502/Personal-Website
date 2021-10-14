@@ -1,0 +1,198 @@
+FOSA Standard no. 001
+
+CTML Standard
+-------------
+ Author: Samuel Pearce
+ E-Mail: sam@aepearce.com
+
+Contents:
+ 1. Version
+ 2. Terminology
+ 3. Purpose
+ 4. Definitions
+ 5. Elements
+ 6. Attributes
+ 7. Approval
+
+1 - Version
+-----------
+ VERSION: 1.0
+ CHANGES:
+	No changes have been made.
+
+2 - Terminology
+---------------
+ CTML:
+	Initialism as a name for the Console
+	Text Markup Language.
+ Tag:
+	A tag in CTML is any sequence of characters
+	that begins with an open square bracket ([) and
+	ends with a closed square bracket (]).
+
+ Element:
+	An element is any region of text, including tags,
+	that are surrounded by a beginning and end tag.
+
+ Attribute:
+	Attributes are parts of a tag that describe how
+	the content of the element should be displayed.
+
+3 - Purpose
+-----------
+ The CTML Standard's Purpose is to define a markup language
+ that is more compatable with text based consoles as opposed
+ to graphical environments. The language is however still
+ fully compatible with graphical environments.
+
+4 - Definitions
+---------------
+ A beginning tag contains an element keyword (See section 5)
+ surrounded by square brackets. Optionally attributes can be
+ defined inside the square brackets. All attributes are
+ seperated from the element keyword by a pipe character (|).
+ The attributes are made up of the attribute keyword and the
+ assigned value seperated by a colon (:). Each attribute is
+ seperated from each other by a comma. All spaces are ignored.
+ Examples:
+	
+	[p] --> A beginning paragraph tag
+	[p| fg: red] --> A paragraph tag with red text
+	[p| fg: green, bg: black] --> A paragraph with green
+				      text and black background
+
+ An end tag is simply any tag that has a forward slash (/) in
+ the element keyword. Any attributes are ignored. If the user
+ wants to label their end tags it is allowed but not required.
+ Examples:
+
+	[/] --> Valid end tag
+	[/p] --> Valid end tag
+	[/box] --> Valid end tag
+
+ Page elements can be nested inside each other with the "deepest"
+ attributes being applied. By default the background colour is
+ white and the foreground colour is black. 
+ Example:
+
+	[p| fg: green, bg: black]
+	  This text is green on a black background.
+	  
+	  [p| fg: blue]
+	    This text is blue on a black background.
+	  [/]
+	  
+	  This text is green on a black background.
+	[/]
+
+5 - Elements
+------------
+ 5-1	Paragraph (p)
+	The text is a paragraph by default has no formatting.
+	This is plain text.
+
+ 5-2	First Heading (h1)
+	The first heading is Fully capitalized with a double
+	underline, using the ASCII border characters.
+	The text is offset from the edges by one whitespace:
+		
+		 FIRST HEADING
+		═══════════════
+
+ 5-3	Second Heading (h2)
+	The second heading is the same as the first heading,
+	except the text is not capitalized:
+
+		 Second Heading
+		════════════════
+
+ 5-4	Third Heading (h3)
+	The third heading is the same as the second heading,
+	except the underline consists of single border
+	characters:
+
+		 Third Heading
+		───────────────
+
+ 5-5	Fourth Heading (h4)
+	The fourth heading is the same as the Third heading,
+	but there is no offset from the edges and the underline
+	uses minus characters instead of border characters:
+
+		Fourth Heading
+		--------------
+
+ 5-6	Highlight (high)
+	By default this will set the background of any text it
+	encompasses to yellow. The color can be changed with
+	the 'bg' attribute.
+
+ 5-7	Box (box)
+	The box element creates a box at any position on the
+	screen and any text inside it will wrap when it reaches
+	the end of the box's width. If the starting column or
+	starting row is not defined, it will just pick the left-
+	most column or topmost row it can. If the width or height
+	is not set it will simply take up as much space as possible.
+	If the box runs out of room to display it's elements, it
+	will add a scroll bar. If the padding attribute is set, any
+	elements inside the box will have the amount of space from
+	the edges of the box. if the box's margin attribute is set,
+	That amount of space will be left around the outside of the
+	box. Any elements outside the box will keep that much distance.
+
+ 5-8	Hyperlinks (link)
+	For a link element to lead anywhere when clicked on, it must
+	have the href attribute set to a valid url. when the link is
+	selected it will be highlighted. The default highlight colour
+	is light grey, but this can be changed, by setting the sel
+	attribute.
+
+6 - Attributes
+--------------
+ All attributes have an index (listed here in square brackets)
+ that defines where this attribute should be stored in an array
+ of all possible attributes.
+
+ 6-1	Foreground (fg) [0]
+	This attribute defines what colour the text will be
+	written in.
+
+ 6-2	Background (bg) [1]
+	This defines the background colour of any text in
+	the current element.
+
+ 6-3	Width (width) [2]
+	This defines the width of the current box element.
+
+ 6-4	Height (height) [3]
+	Defines the height of the current box element.
+
+ 6-5	Box X Coordinate (col) [4]
+	Defines after which column the current box should be drawn.
+
+ 6-6	Box Y Coordinate (row) [5]
+	Defines after which row the current box should be drawn.
+
+ 6-7	Select colour (sel) [6]
+	Sets what colour the background should be set to when
+	the element is selected.
+
+ 6-8	Margin (margin) [7]
+	Sets how many characters to leave around the current
+	box element.
+
+ 6-9	Padding (padding) [8]
+	Sets how many character to leave around the inside of
+	the current box element.
+
+ 6-10	Hyperlink Reference (href) [9]
+	Defines where a link will lead to when selected and
+	entered by a user.
+
+7 - Approval
+------------
+
+Signed By: Samuel Pearce
+Signed On: 02/09/2019
+Signature: FS003_Standard_v1.0.txt.sig
