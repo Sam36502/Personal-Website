@@ -1,0 +1,43 @@
+html {
+	font-family: Helvetica, sans;
+	padding: 50px;
+}
+
+table, td, tr {
+	padding: 15px;
+}
+
+#title-box {
+	text-align: center;
+}
+
+#title-box>h1{
+	font-size: 4rem;
+}
+
+#side-sam {
+	float: left;
+}
+
+#side-amin {
+	float: right;
+}
+
+.bigbtn {
+	text-decoration: none;
+	padding: 20px;
+	margin: 20px;
+	color: #2ECC40;
+	background-color: #01FF70;
+}
+
+.side {
+	width: 47%;
+	float: left;
+	border: 1px solid black;
+	padding: 20px;
+}
+
+.side>h1 {
+	border-bottom: 2px solid black;
+}
